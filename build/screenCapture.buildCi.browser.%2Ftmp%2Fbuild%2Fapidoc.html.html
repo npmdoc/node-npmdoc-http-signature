@@ -1,0 +1,1757 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/joyent/node-http-signature/">http-signature (v1.1.1)</a>
+</h1>
+<h4>Reference implementation of Joyent's HTTP Signature scheme.</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.http-signature">module http-signature</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.createSigner">
+            function <span class="apidocSignatureSpan">http-signature.</span>createSigner
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.isSigner">
+            function <span class="apidocSignatureSpan">http-signature.</span>isSigner
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.parse">
+            function <span class="apidocSignatureSpan">http-signature.</span>parse
+            <span class="apidocSignatureSpan">(request, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.parseRequest">
+            function <span class="apidocSignatureSpan">http-signature.</span>parseRequest
+            <span class="apidocSignatureSpan">(request, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.pemToRsaSSHKey">
+            function <span class="apidocSignatureSpan">http-signature.</span>pemToRsaSSHKey
+            <span class="apidocSignatureSpan">(pem, comment)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.sign">
+            function <span class="apidocSignatureSpan">http-signature.</span>sign
+            <span class="apidocSignatureSpan">(request, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.signRequest">
+            function <span class="apidocSignatureSpan">http-signature.</span>signRequest
+            <span class="apidocSignatureSpan">(request, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.sshKeyFingerprint">
+            function <span class="apidocSignatureSpan">http-signature.</span>sshKeyFingerprint
+            <span class="apidocSignatureSpan">(key)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.sshKeyToPEM">
+            function <span class="apidocSignatureSpan">http-signature.</span>sshKeyToPEM
+            <span class="apidocSignatureSpan">(key)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.verify">
+            function <span class="apidocSignatureSpan">http-signature.</span>verify
+            <span class="apidocSignatureSpan">(parsedSignature, pubkey)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.verifyHMAC">
+            function <span class="apidocSignatureSpan">http-signature.</span>verifyHMAC
+            <span class="apidocSignatureSpan">(parsedSignature, secret)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.verifySignature">
+            function <span class="apidocSignatureSpan">http-signature.</span>verifySignature
+            <span class="apidocSignatureSpan">(parsedSignature, pubkey)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">http-signature.</span>parser</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">http-signature.</span>signer</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">http-signature.</span>utils</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.http-signature.parser">module http-signature.parser</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.parser.parseRequest">
+            function <span class="apidocSignatureSpan">http-signature.parser.</span>parseRequest
+            <span class="apidocSignatureSpan">(request, options)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.http-signature.signer">module http-signature.signer</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.signer.createSigner">
+            function <span class="apidocSignatureSpan">http-signature.signer.</span>createSigner
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.signer.isSigner">
+            function <span class="apidocSignatureSpan">http-signature.signer.</span>isSigner
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.signer.signRequest">
+            function <span class="apidocSignatureSpan">http-signature.signer.</span>signRequest
+            <span class="apidocSignatureSpan">(request, options)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.http-signature.utils">module http-signature.utils</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.utils.HttpSignatureError">
+            function <span class="apidocSignatureSpan">http-signature.utils.</span>HttpSignatureError
+            <span class="apidocSignatureSpan">(message, caller)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.utils.InvalidAlgorithmError">
+            function <span class="apidocSignatureSpan">http-signature.utils.</span>InvalidAlgorithmError
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.utils.fingerprint">
+            function <span class="apidocSignatureSpan">http-signature.utils.</span>fingerprint
+            <span class="apidocSignatureSpan">(key)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.utils.pemToRsaSSHKey">
+            function <span class="apidocSignatureSpan">http-signature.utils.</span>pemToRsaSSHKey
+            <span class="apidocSignatureSpan">(pem, comment)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.utils.sshKeyToPEM">
+            function <span class="apidocSignatureSpan">http-signature.utils.</span>sshKeyToPEM
+            <span class="apidocSignatureSpan">(key)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.utils.validateAlgorithm">
+            function <span class="apidocSignatureSpan">http-signature.utils.</span>validateAlgorithm
+            <span class="apidocSignatureSpan">(algorithm)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">http-signature.utils.</span>HASH_ALGOS</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">http-signature.utils.</span>PK_ALGOS</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.http-signature.verify">module http-signature.verify</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.verify.verifyHMAC">
+            function <span class="apidocSignatureSpan">http-signature.verify.</span>verifyHMAC
+            <span class="apidocSignatureSpan">(parsedSignature, secret)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.http-signature.verify.verifySignature">
+            function <span class="apidocSignatureSpan">http-signature.verify.</span>verifySignature
+            <span class="apidocSignatureSpan">(parsedSignature, pubkey)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.http-signature" id="apidoc.module.http-signature">module http-signature</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.createSigner" id="apidoc.element.http-signature.createSigner">
+        function <span class="apidocSignatureSpan">http-signature.</span>createSigner
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function createSigner(options) {
+  return (new RequestSigner(options));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.isSigner" id="apidoc.element.http-signature.isSigner">
+        function <span class="apidocSignatureSpan">http-signature.</span>isSigner
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isSigner = function (obj) {
+  if (typeof (obj) === 'object' &amp;&amp; obj instanceof RequestSigner)
+    return (true);
+  return (false);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.parse" id="apidoc.element.http-signature.parse">
+        function <span class="apidocSignatureSpan">http-signature.</span>parse
+        <span class="apidocSignatureSpan">(request, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function parseRequest(request, options) {
+  assert.object(request, 'request');
+  assert.object(request.headers, 'request.headers');
+  if (options === undefined) {
+    options = {};
+  }
+  if (options.headers === undefined) {
+    options.headers = [request.headers['x-date'] ? 'x-date' : 'date'];
+  }
+  assert.object(options, 'options');
+  assert.arrayOfString(options.headers, 'options.headers');
+  assert.optionalNumber(options.clockSkew, 'options.clockSkew');
+
+  if (!request.headers.authorization)
+    throw new MissingHeaderError('no authorization header present in ' +
+                                 'the request');
+
+  options.clockSkew = options.clockSkew || 300;
+
+
+  var i = 0;
+  var state = State.New;
+  var substate = ParamsState.Name;
+  var tmpName = '';
+  var tmpValue = '';
+
+  var parsed = {
+    scheme: '',
+    params: {},
+    signingString: '',
+
+    get algorithm() {
+      return this.params.algorithm.toUpperCase();
+    },
+
+    get keyId() {
+      return this.params.keyId;
+    }
+  };
+
+  var authz = request.headers.authorization;
+  for (i = 0; i &lt; authz.length; i++) {
+    var c = authz.charAt(i);
+
+    switch (Number(state)) {
+
+    case State.New:
+      if (c !== ' ') parsed.scheme += c;
+      else state = State.Params;
+      break;
+
+    case State.Params:
+      switch (Number(substate)) {
+
+      case ParamsState.Name:
+        var code = c.charCodeAt(0);
+        // restricted name of A-Z / a-z
+        if ((code &gt;= 0x41 &amp;&amp; code &lt;= 0x5a) || // A-Z
+            (code &gt;= 0x61 &amp;&amp; code &lt;= 0x7a)) { // a-z
+          tmpName += c;
+        } else if (c === '=') {
+          if (tmpName.length === 0)
+            throw new InvalidHeaderError('bad param format');
+          substate = ParamsState.Quote;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      case ParamsState.Quote:
+        if (c === '"') {
+          tmpValue = '';
+          substate = ParamsState.Value;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      case ParamsState.Value:
+        if (c === '"') {
+          parsed.params[tmpName] = tmpValue;
+          substate = ParamsState.Comma;
+        } else {
+          tmpValue += c;
+        }
+        break;
+
+      case ParamsState.Comma:
+        if (c === ',') {
+          tmpName = '';
+          substate = ParamsState.Name;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      default:
+        throw new Error('Invalid substate');
+      }
+      break;
+
+    default:
+      throw new Error('Invalid substate');
+    }
+
+  }
+
+  if (!parsed.params.headers || parsed.params.headers === '') {
+    if (request.headers['x-date']) {
+      parsed.params.headers = ['x-date'];
+    } else {
+      parsed.params.headers = ['date'];
+    }
+  } else {
+    parsed.params.headers = parsed.params.headers.split(' ');
+  }
+
+  // Minimally validate the parsed object
+  if (!parsed.scheme || parsed.scheme !== 'Signature')
+    throw new InvalidHeaderError('scheme was not "Signature"');
+
+  if (!parsed.params.keyId)
+    throw new InvalidHeaderError('keyId was not specified');
+
+  if (!parsed.params.algorithm)
+    throw new InvalidHeaderError('algorithm was not specified');
+
+  if (!parsed.params.signature)
+    throw new InvalidHeaderError('signature was not specified');
+
+  // Check the algorithm against the official list
+  parsed.params.algorithm = parsed.params.algorithm.toLowerCase();
+  try {
+    validateAlgorithm(parsed.params.algorithm);
+  } catch (e) {
+    if (e instanceof InvalidAlgorithmError)
+      throw (new InvalidParamsError(parsed.params.algorithm + ' is not ' +
+        'supported'));
+    else
+      throw (e);
+  }
+
+  // Build the signingString
+  for (i = 0; i &lt; parsed.params.headers.length; i++) {
+    var h = parsed.params.headers[i].toLowerCase();
+    parsed.params.headers[i] = h;
+
+    if (h === 'request-line') {
+      if (!options.strict) {
+<span class="apidocCodeCommentSpan">        /*
+         * We allow headers from the older spec drafts if strict parsing isn't
+         * specified in options.
+         */
+</span>        parsed. ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.parseRequest" id="apidoc.element.http-signature.parseRequest">
+        function <span class="apidocSignatureSpan">http-signature.</span>parseRequest
+        <span class="apidocSignatureSpan">(request, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function parseRequest(request, options) {
+  assert.object(request, 'request');
+  assert.object(request.headers, 'request.headers');
+  if (options === undefined) {
+    options = {};
+  }
+  if (options.headers === undefined) {
+    options.headers = [request.headers['x-date'] ? 'x-date' : 'date'];
+  }
+  assert.object(options, 'options');
+  assert.arrayOfString(options.headers, 'options.headers');
+  assert.optionalNumber(options.clockSkew, 'options.clockSkew');
+
+  if (!request.headers.authorization)
+    throw new MissingHeaderError('no authorization header present in ' +
+                                 'the request');
+
+  options.clockSkew = options.clockSkew || 300;
+
+
+  var i = 0;
+  var state = State.New;
+  var substate = ParamsState.Name;
+  var tmpName = '';
+  var tmpValue = '';
+
+  var parsed = {
+    scheme: '',
+    params: {},
+    signingString: '',
+
+    get algorithm() {
+      return this.params.algorithm.toUpperCase();
+    },
+
+    get keyId() {
+      return this.params.keyId;
+    }
+  };
+
+  var authz = request.headers.authorization;
+  for (i = 0; i &lt; authz.length; i++) {
+    var c = authz.charAt(i);
+
+    switch (Number(state)) {
+
+    case State.New:
+      if (c !== ' ') parsed.scheme += c;
+      else state = State.Params;
+      break;
+
+    case State.Params:
+      switch (Number(substate)) {
+
+      case ParamsState.Name:
+        var code = c.charCodeAt(0);
+        // restricted name of A-Z / a-z
+        if ((code &gt;= 0x41 &amp;&amp; code &lt;= 0x5a) || // A-Z
+            (code &gt;= 0x61 &amp;&amp; code &lt;= 0x7a)) { // a-z
+          tmpName += c;
+        } else if (c === '=') {
+          if (tmpName.length === 0)
+            throw new InvalidHeaderError('bad param format');
+          substate = ParamsState.Quote;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      case ParamsState.Quote:
+        if (c === '"') {
+          tmpValue = '';
+          substate = ParamsState.Value;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      case ParamsState.Value:
+        if (c === '"') {
+          parsed.params[tmpName] = tmpValue;
+          substate = ParamsState.Comma;
+        } else {
+          tmpValue += c;
+        }
+        break;
+
+      case ParamsState.Comma:
+        if (c === ',') {
+          tmpName = '';
+          substate = ParamsState.Name;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      default:
+        throw new Error('Invalid substate');
+      }
+      break;
+
+    default:
+      throw new Error('Invalid substate');
+    }
+
+  }
+
+  if (!parsed.params.headers || parsed.params.headers === '') {
+    if (request.headers['x-date']) {
+      parsed.params.headers = ['x-date'];
+    } else {
+      parsed.params.headers = ['date'];
+    }
+  } else {
+    parsed.params.headers = parsed.params.headers.split(' ');
+  }
+
+  // Minimally validate the parsed object
+  if (!parsed.scheme || parsed.scheme !== 'Signature')
+    throw new InvalidHeaderError('scheme was not "Signature"');
+
+  if (!parsed.params.keyId)
+    throw new InvalidHeaderError('keyId was not specified');
+
+  if (!parsed.params.algorithm)
+    throw new InvalidHeaderError('algorithm was not specified');
+
+  if (!parsed.params.signature)
+    throw new InvalidHeaderError('signature was not specified');
+
+  // Check the algorithm against the official list
+  parsed.params.algorithm = parsed.params.algorithm.toLowerCase();
+  try {
+    validateAlgorithm(parsed.params.algorithm);
+  } catch (e) {
+    if (e instanceof InvalidAlgorithmError)
+      throw (new InvalidParamsError(parsed.params.algorithm + ' is not ' +
+        'supported'));
+    else
+      throw (e);
+  }
+
+  // Build the signingString
+  for (i = 0; i &lt; parsed.params.headers.length; i++) {
+    var h = parsed.params.headers[i].toLowerCase();
+    parsed.params.headers[i] = h;
+
+    if (h === 'request-line') {
+      if (!options.strict) {
+<span class="apidocCodeCommentSpan">        /*
+         * We allow headers from the older spec drafts if strict parsing isn't
+         * specified in options.
+         */
+</span>        parsed. ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var options = {
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem')
+};
+
+https.createServer(options, function (req, res) {
+  var rc = 200;
+  var parsed = httpSignature.<span class="apidocCodeKeywordSpan">parseRequest</span>(req);
+  var pub = fs.readFileSync(parsed.keyId, 'ascii');
+  if (!httpSignature.verifySignature(parsed, pub))
+    rc = 401;
+
+  res.writeHead(rc);
+  res.end();
+}).listen(8443);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.pemToRsaSSHKey" id="apidoc.element.http-signature.pemToRsaSSHKey">
+        function <span class="apidocSignatureSpan">http-signature.</span>pemToRsaSSHKey
+        <span class="apidocSignatureSpan">(pem, comment)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function pemToRsaSSHKey(pem, comment) {
+  assert.equal('string', typeof (pem), 'typeof pem');
+
+  var k = sshpk.parseKey(pem, 'pem');
+  k.comment = comment;
+  return (k.toString('ssh'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.sign" id="apidoc.element.http-signature.sign">
+        function <span class="apidocSignatureSpan">http-signature.</span>sign
+        <span class="apidocSignatureSpan">(request, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function signRequest(request, options) {
+  assert.object(request, 'request');
+  assert.object(options, 'options');
+  assert.optionalString(options.algorithm, 'options.algorithm');
+  assert.string(options.keyId, 'options.keyId');
+  assert.optionalArrayOfString(options.headers, 'options.headers');
+  assert.optionalString(options.httpVersion, 'options.httpVersion');
+
+  if (!request.getHeader('Date'))
+    request.setHeader('Date', jsprim.rfc1123(new Date()));
+  if (!options.headers)
+    options.headers = ['date'];
+  if (!options.httpVersion)
+    options.httpVersion = '1.1';
+
+  var alg = [];
+  if (options.algorithm) {
+    options.algorithm = options.algorithm.toLowerCase();
+    alg = validateAlgorithm(options.algorithm);
+  }
+
+  var i;
+  var stringToSign = '';
+  for (i = 0; i &lt; options.headers.length; i++) {
+    if (typeof (options.headers[i]) !== 'string')
+      throw new TypeError('options.headers must be an array of Strings');
+
+    var h = options.headers[i].toLowerCase();
+
+    if (h === 'request-line') {
+      if (!options.strict) {
+<span class="apidocCodeCommentSpan">        /**
+         * We allow headers from the older spec drafts if strict parsing isn't
+         * specified in options.
+         */
+</span>        stringToSign +=
+          request.method + ' ' + request.path + ' HTTP/' +
+          options.httpVersion;
+      } else {
+        /* Strict parsing doesn't allow older draft headers. */
+        throw (new StrictParsingError('request-line is not a valid header ' +
+          'with strict parsing enabled.'));
+      }
+    } else if (h === '(request-target)') {
+      stringToSign +=
+        '(request-target): ' + request.method.toLowerCase() + ' ' +
+        request.path;
+    } else {
+      var value = request.getHeader(h);
+      if (value === undefined || value === '') {
+        throw new MissingHeaderError(h + ' was not in the request');
+      }
+      stringToSign += h + ': ' + value;
+    }
+
+    if ((i + 1) &lt; options.headers.length)
+      stringToSign += '\n';
+  }
+
+  /* This is just for unit tests. */
+  if (request.hasOwnProperty('_stringToSign')) {
+    request._stringToSign = stringToSign;
+  }
+
+  var signature;
+  if (alg[0] === 'hmac') {
+    if (typeof (options.key) !== 'string' &amp;&amp; !Buffer.isBuffer(options.key))
+      throw (new TypeError('options.key must be a string or Buffer'));
+
+    var hmac = crypto.createHmac(alg[1].toUpperCase(), options.key);
+    hmac.update(stringToSign);
+    signature = hmac.digest('base64');
+
+  } else {
+    var key = options.key;
+    if (typeof (key) === 'string' || Buffer.isBuffer(key))
+      key = sshpk.parsePrivateKey(options.key);
+
+    assert.ok(sshpk.PrivateKey.isPrivateKey(key, [1, 2]),
+      'options.key must be a sshpk.PrivateKey');
+
+    if (!PK_ALGOS[key.type]) {
+      throw (new InvalidAlgorithmError(key.type.toUpperCase() + ' type ' +
+        'keys are not supported'));
+    }
+
+    if (alg[0] !== undefined &amp;&amp; key.type !== alg[0]) {
+      throw (new InvalidAlgorithmError('options.key must be a ' +
+        alg[0].toUpperCase() + ' key, was given a ' +
+        key.type.toUpperCase() + ' key instead'));
+    }
+
+    var signer = key.createSign(alg[1]);
+    signer.update(stringToSign);
+    var sigObj = signer.sign();
+    if (!HASH_ALGOS[sigObj.hashAlgorithm]) {
+      throw (new InvalidAlgorithmError(sigObj.hashAlgorithm.toUpperCase() +
+        ' is not a supported hash algorithm'));
+    }
+    options.algorithm = key.type + '-' + sigObj.hashAlgorithm;
+    signature = sigObj.toString();
+    assert.notStrictEqual(signature, '', 'empty signature produced');
+  }
+
+  request.setHeader('Authorization', sprintf(AUTHZ_FMT,
+                                             options.keyId,
+                                             options.algorithm,
+                                             options.headers.join(' '),
+                                             signature));
+
+  return true;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// Adds a 'Date' header in, signs it, and adds the
+// 'Authorization' header in.
+var req = https.request(options, function(res) {
+  console.log(res.statusCode);
+});
+
+
+httpSignature.<span class="apidocCodeKeywordSpan">sign</span>(req, {
+  key: key,
+  keyId: './cert.pem'
+});
+
+req.end();
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.signRequest" id="apidoc.element.http-signature.signRequest">
+        function <span class="apidocSignatureSpan">http-signature.</span>signRequest
+        <span class="apidocSignatureSpan">(request, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function signRequest(request, options) {
+  assert.object(request, 'request');
+  assert.object(options, 'options');
+  assert.optionalString(options.algorithm, 'options.algorithm');
+  assert.string(options.keyId, 'options.keyId');
+  assert.optionalArrayOfString(options.headers, 'options.headers');
+  assert.optionalString(options.httpVersion, 'options.httpVersion');
+
+  if (!request.getHeader('Date'))
+    request.setHeader('Date', jsprim.rfc1123(new Date()));
+  if (!options.headers)
+    options.headers = ['date'];
+  if (!options.httpVersion)
+    options.httpVersion = '1.1';
+
+  var alg = [];
+  if (options.algorithm) {
+    options.algorithm = options.algorithm.toLowerCase();
+    alg = validateAlgorithm(options.algorithm);
+  }
+
+  var i;
+  var stringToSign = '';
+  for (i = 0; i &lt; options.headers.length; i++) {
+    if (typeof (options.headers[i]) !== 'string')
+      throw new TypeError('options.headers must be an array of Strings');
+
+    var h = options.headers[i].toLowerCase();
+
+    if (h === 'request-line') {
+      if (!options.strict) {
+<span class="apidocCodeCommentSpan">        /**
+         * We allow headers from the older spec drafts if strict parsing isn't
+         * specified in options.
+         */
+</span>        stringToSign +=
+          request.method + ' ' + request.path + ' HTTP/' +
+          options.httpVersion;
+      } else {
+        /* Strict parsing doesn't allow older draft headers. */
+        throw (new StrictParsingError('request-line is not a valid header ' +
+          'with strict parsing enabled.'));
+      }
+    } else if (h === '(request-target)') {
+      stringToSign +=
+        '(request-target): ' + request.method.toLowerCase() + ' ' +
+        request.path;
+    } else {
+      var value = request.getHeader(h);
+      if (value === undefined || value === '') {
+        throw new MissingHeaderError(h + ' was not in the request');
+      }
+      stringToSign += h + ': ' + value;
+    }
+
+    if ((i + 1) &lt; options.headers.length)
+      stringToSign += '\n';
+  }
+
+  /* This is just for unit tests. */
+  if (request.hasOwnProperty('_stringToSign')) {
+    request._stringToSign = stringToSign;
+  }
+
+  var signature;
+  if (alg[0] === 'hmac') {
+    if (typeof (options.key) !== 'string' &amp;&amp; !Buffer.isBuffer(options.key))
+      throw (new TypeError('options.key must be a string or Buffer'));
+
+    var hmac = crypto.createHmac(alg[1].toUpperCase(), options.key);
+    hmac.update(stringToSign);
+    signature = hmac.digest('base64');
+
+  } else {
+    var key = options.key;
+    if (typeof (key) === 'string' || Buffer.isBuffer(key))
+      key = sshpk.parsePrivateKey(options.key);
+
+    assert.ok(sshpk.PrivateKey.isPrivateKey(key, [1, 2]),
+      'options.key must be a sshpk.PrivateKey');
+
+    if (!PK_ALGOS[key.type]) {
+      throw (new InvalidAlgorithmError(key.type.toUpperCase() + ' type ' +
+        'keys are not supported'));
+    }
+
+    if (alg[0] !== undefined &amp;&amp; key.type !== alg[0]) {
+      throw (new InvalidAlgorithmError('options.key must be a ' +
+        alg[0].toUpperCase() + ' key, was given a ' +
+        key.type.toUpperCase() + ' key instead'));
+    }
+
+    var signer = key.createSign(alg[1]);
+    signer.update(stringToSign);
+    var sigObj = signer.sign();
+    if (!HASH_ALGOS[sigObj.hashAlgorithm]) {
+      throw (new InvalidAlgorithmError(sigObj.hashAlgorithm.toUpperCase() +
+        ' is not a supported hash algorithm'));
+    }
+    options.algorithm = key.type + '-' + sigObj.hashAlgorithm;
+    signature = sigObj.toString();
+    assert.notStrictEqual(signature, '', 'empty signature produced');
+  }
+
+  request.setHeader('Authorization', sprintf(AUTHZ_FMT,
+                                             options.keyId,
+                                             options.algorithm,
+                                             options.headers.join(' '),
+                                             signature));
+
+  return true;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.sshKeyFingerprint" id="apidoc.element.http-signature.sshKeyFingerprint">
+        function <span class="apidocSignatureSpan">http-signature.</span>sshKeyFingerprint
+        <span class="apidocSignatureSpan">(key)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function fingerprint(key) {
+  assert.string(key, 'ssh_key');
+
+  var k = sshpk.parseKey(key, 'ssh');
+  return (k.fingerprint('md5').toString('hex'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.sshKeyToPEM" id="apidoc.element.http-signature.sshKeyToPEM">
+        function <span class="apidocSignatureSpan">http-signature.</span>sshKeyToPEM
+        <span class="apidocSignatureSpan">(key)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function sshKeyToPEM(key) {
+  assert.string(key, 'ssh_key');
+
+  var k = sshpk.parseKey(key, 'ssh');
+  return (k.toString('pem'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.verify" id="apidoc.element.http-signature.verify">
+        function <span class="apidocSignatureSpan">http-signature.</span>verify
+        <span class="apidocSignatureSpan">(parsedSignature, pubkey)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function verifySignature(parsedSignature, pubkey) {
+  assert.object(parsedSignature, 'parsedSignature');
+  if (typeof (pubkey) === 'string' || Buffer.isBuffer(pubkey))
+    pubkey = sshpk.parseKey(pubkey);
+  assert.ok(sshpk.Key.isKey(pubkey, [1, 1]), 'pubkey must be a sshpk.Key');
+
+  var alg = validateAlgorithm(parsedSignature.algorithm);
+  if (alg[0] === 'hmac' || alg[0] !== pubkey.type)
+    return (false);
+
+  var v = pubkey.createVerify(alg[1]);
+  v.update(parsedSignature.signingString);
+  return (v.verify(parsedSignature.params.signature, 'base64'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+*         "algorithm": "rsa-sha256",
+*         "headers": [
+*           "date" or "x-date",
+*           "digest"
+*         ],
+*         "signature": "base64"
+*       },
+*       "signingString": "ready to be passed to crypto.<span class="apidocCodeKeywordSpan">verify</span>()"
+*     }
+*
+* @param {Object} request an http.ServerRequest.
+* @param {Object} options an optional options object with:
+*                   - clockSkew: allowed clock skew in seconds (default 300).
+*                   - headers: required header names (def: date or x-date)
+*                   - algorithms: algorithms to support (default: all).
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.verifyHMAC" id="apidoc.element.http-signature.verifyHMAC">
+        function <span class="apidocSignatureSpan">http-signature.</span>verifyHMAC
+        <span class="apidocSignatureSpan">(parsedSignature, secret)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function verifyHMAC(parsedSignature, secret) {
+  assert.object(parsedSignature, 'parsedHMAC');
+  assert.string(secret, 'secret');
+
+  var alg = validateAlgorithm(parsedSignature.algorithm);
+  if (alg[0] !== 'hmac')
+    return (false);
+
+  var hashAlg = alg[1].toUpperCase();
+
+  var hmac = crypto.createHmac(hashAlg, secret);
+  hmac.update(parsedSignature.signingString);
+
+<span class="apidocCodeCommentSpan">  /*
+   * Now double-hash to avoid leaking timing information - there's
+   * no easy constant-time compare in JS, so we use this approach
+   * instead. See for more info:
+   * https://www.isecpartners.com/blog/2011/february/double-hmac-
+   * verification.aspx
+   */
+</span>  var h1 = crypto.createHmac(hashAlg, secret);
+  h1.update(hmac.digest());
+  h1 = h1.digest();
+  var h2 = crypto.createHmac(hashAlg, secret);
+  h2.update(new Buffer(parsedSignature.params.signature, 'base64'));
+  h2 = h2.digest();
+
+  /* Node 0.8 returns strings from .digest(). */
+  if (typeof (h1) === 'string')
+    return (h1 === h2);
+  /* And node 0.10 lacks the .equals() method on Buffers. */
+  if (Buffer.isBuffer(h1) &amp;&amp; !h1.equals)
+    return (h1.toString('binary') === h2.toString('binary'));
+
+  return (h1.equals(h2));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.verifySignature" id="apidoc.element.http-signature.verifySignature">
+        function <span class="apidocSignatureSpan">http-signature.</span>verifySignature
+        <span class="apidocSignatureSpan">(parsedSignature, pubkey)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function verifySignature(parsedSignature, pubkey) {
+  assert.object(parsedSignature, 'parsedSignature');
+  if (typeof (pubkey) === 'string' || Buffer.isBuffer(pubkey))
+    pubkey = sshpk.parseKey(pubkey);
+  assert.ok(sshpk.Key.isKey(pubkey, [1, 1]), 'pubkey must be a sshpk.Key');
+
+  var alg = validateAlgorithm(parsedSignature.algorithm);
+  if (alg[0] === 'hmac' || alg[0] !== pubkey.type)
+    return (false);
+
+  var v = pubkey.createVerify(alg[1]);
+  v.update(parsedSignature.signingString);
+  return (v.verify(parsedSignature.params.signature, 'base64'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  cert: fs.readFileSync('./cert.pem')
+};
+
+https.createServer(options, function (req, res) {
+  var rc = 200;
+  var parsed = httpSignature.parseRequest(req);
+  var pub = fs.readFileSync(parsed.keyId, 'ascii');
+  if (!httpSignature.<span class="apidocCodeKeywordSpan">verifySignature</span>(parsed, pub))
+    rc = 401;
+
+  res.writeHead(rc);
+  res.end();
+}).listen(8443);
+```
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.http-signature.parser" id="apidoc.module.http-signature.parser">module http-signature.parser</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.parser.parseRequest" id="apidoc.element.http-signature.parser.parseRequest">
+        function <span class="apidocSignatureSpan">http-signature.parser.</span>parseRequest
+        <span class="apidocSignatureSpan">(request, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function parseRequest(request, options) {
+  assert.object(request, 'request');
+  assert.object(request.headers, 'request.headers');
+  if (options === undefined) {
+    options = {};
+  }
+  if (options.headers === undefined) {
+    options.headers = [request.headers['x-date'] ? 'x-date' : 'date'];
+  }
+  assert.object(options, 'options');
+  assert.arrayOfString(options.headers, 'options.headers');
+  assert.optionalNumber(options.clockSkew, 'options.clockSkew');
+
+  if (!request.headers.authorization)
+    throw new MissingHeaderError('no authorization header present in ' +
+                                 'the request');
+
+  options.clockSkew = options.clockSkew || 300;
+
+
+  var i = 0;
+  var state = State.New;
+  var substate = ParamsState.Name;
+  var tmpName = '';
+  var tmpValue = '';
+
+  var parsed = {
+    scheme: '',
+    params: {},
+    signingString: '',
+
+    get algorithm() {
+      return this.params.algorithm.toUpperCase();
+    },
+
+    get keyId() {
+      return this.params.keyId;
+    }
+  };
+
+  var authz = request.headers.authorization;
+  for (i = 0; i &lt; authz.length; i++) {
+    var c = authz.charAt(i);
+
+    switch (Number(state)) {
+
+    case State.New:
+      if (c !== ' ') parsed.scheme += c;
+      else state = State.Params;
+      break;
+
+    case State.Params:
+      switch (Number(substate)) {
+
+      case ParamsState.Name:
+        var code = c.charCodeAt(0);
+        // restricted name of A-Z / a-z
+        if ((code &gt;= 0x41 &amp;&amp; code &lt;= 0x5a) || // A-Z
+            (code &gt;= 0x61 &amp;&amp; code &lt;= 0x7a)) { // a-z
+          tmpName += c;
+        } else if (c === '=') {
+          if (tmpName.length === 0)
+            throw new InvalidHeaderError('bad param format');
+          substate = ParamsState.Quote;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      case ParamsState.Quote:
+        if (c === '"') {
+          tmpValue = '';
+          substate = ParamsState.Value;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      case ParamsState.Value:
+        if (c === '"') {
+          parsed.params[tmpName] = tmpValue;
+          substate = ParamsState.Comma;
+        } else {
+          tmpValue += c;
+        }
+        break;
+
+      case ParamsState.Comma:
+        if (c === ',') {
+          tmpName = '';
+          substate = ParamsState.Name;
+        } else {
+          throw new InvalidHeaderError('bad param format');
+        }
+        break;
+
+      default:
+        throw new Error('Invalid substate');
+      }
+      break;
+
+    default:
+      throw new Error('Invalid substate');
+    }
+
+  }
+
+  if (!parsed.params.headers || parsed.params.headers === '') {
+    if (request.headers['x-date']) {
+      parsed.params.headers = ['x-date'];
+    } else {
+      parsed.params.headers = ['date'];
+    }
+  } else {
+    parsed.params.headers = parsed.params.headers.split(' ');
+  }
+
+  // Minimally validate the parsed object
+  if (!parsed.scheme || parsed.scheme !== 'Signature')
+    throw new InvalidHeaderError('scheme was not "Signature"');
+
+  if (!parsed.params.keyId)
+    throw new InvalidHeaderError('keyId was not specified');
+
+  if (!parsed.params.algorithm)
+    throw new InvalidHeaderError('algorithm was not specified');
+
+  if (!parsed.params.signature)
+    throw new InvalidHeaderError('signature was not specified');
+
+  // Check the algorithm against the official list
+  parsed.params.algorithm = parsed.params.algorithm.toLowerCase();
+  try {
+    validateAlgorithm(parsed.params.algorithm);
+  } catch (e) {
+    if (e instanceof InvalidAlgorithmError)
+      throw (new InvalidParamsError(parsed.params.algorithm + ' is not ' +
+        'supported'));
+    else
+      throw (e);
+  }
+
+  // Build the signingString
+  for (i = 0; i &lt; parsed.params.headers.length; i++) {
+    var h = parsed.params.headers[i].toLowerCase();
+    parsed.params.headers[i] = h;
+
+    if (h === 'request-line') {
+      if (!options.strict) {
+<span class="apidocCodeCommentSpan">        /*
+         * We allow headers from the older spec drafts if strict parsing isn't
+         * specified in options.
+         */
+</span>        parsed. ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var options = {
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem')
+};
+
+https.createServer(options, function (req, res) {
+  var rc = 200;
+  var parsed = httpSignature.<span class="apidocCodeKeywordSpan">parseRequest</span>(req);
+  var pub = fs.readFileSync(parsed.keyId, 'ascii');
+  if (!httpSignature.verifySignature(parsed, pub))
+    rc = 401;
+
+  res.writeHead(rc);
+  res.end();
+}).listen(8443);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.http-signature.signer" id="apidoc.module.http-signature.signer">module http-signature.signer</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.signer.createSigner" id="apidoc.element.http-signature.signer.createSigner">
+        function <span class="apidocSignatureSpan">http-signature.signer.</span>createSigner
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function createSigner(options) {
+  return (new RequestSigner(options));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.signer.isSigner" id="apidoc.element.http-signature.signer.isSigner">
+        function <span class="apidocSignatureSpan">http-signature.signer.</span>isSigner
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isSigner = function (obj) {
+  if (typeof (obj) === 'object' &amp;&amp; obj instanceof RequestSigner)
+    return (true);
+  return (false);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.signer.signRequest" id="apidoc.element.http-signature.signer.signRequest">
+        function <span class="apidocSignatureSpan">http-signature.signer.</span>signRequest
+        <span class="apidocSignatureSpan">(request, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function signRequest(request, options) {
+  assert.object(request, 'request');
+  assert.object(options, 'options');
+  assert.optionalString(options.algorithm, 'options.algorithm');
+  assert.string(options.keyId, 'options.keyId');
+  assert.optionalArrayOfString(options.headers, 'options.headers');
+  assert.optionalString(options.httpVersion, 'options.httpVersion');
+
+  if (!request.getHeader('Date'))
+    request.setHeader('Date', jsprim.rfc1123(new Date()));
+  if (!options.headers)
+    options.headers = ['date'];
+  if (!options.httpVersion)
+    options.httpVersion = '1.1';
+
+  var alg = [];
+  if (options.algorithm) {
+    options.algorithm = options.algorithm.toLowerCase();
+    alg = validateAlgorithm(options.algorithm);
+  }
+
+  var i;
+  var stringToSign = '';
+  for (i = 0; i &lt; options.headers.length; i++) {
+    if (typeof (options.headers[i]) !== 'string')
+      throw new TypeError('options.headers must be an array of Strings');
+
+    var h = options.headers[i].toLowerCase();
+
+    if (h === 'request-line') {
+      if (!options.strict) {
+<span class="apidocCodeCommentSpan">        /**
+         * We allow headers from the older spec drafts if strict parsing isn't
+         * specified in options.
+         */
+</span>        stringToSign +=
+          request.method + ' ' + request.path + ' HTTP/' +
+          options.httpVersion;
+      } else {
+        /* Strict parsing doesn't allow older draft headers. */
+        throw (new StrictParsingError('request-line is not a valid header ' +
+          'with strict parsing enabled.'));
+      }
+    } else if (h === '(request-target)') {
+      stringToSign +=
+        '(request-target): ' + request.method.toLowerCase() + ' ' +
+        request.path;
+    } else {
+      var value = request.getHeader(h);
+      if (value === undefined || value === '') {
+        throw new MissingHeaderError(h + ' was not in the request');
+      }
+      stringToSign += h + ': ' + value;
+    }
+
+    if ((i + 1) &lt; options.headers.length)
+      stringToSign += '\n';
+  }
+
+  /* This is just for unit tests. */
+  if (request.hasOwnProperty('_stringToSign')) {
+    request._stringToSign = stringToSign;
+  }
+
+  var signature;
+  if (alg[0] === 'hmac') {
+    if (typeof (options.key) !== 'string' &amp;&amp; !Buffer.isBuffer(options.key))
+      throw (new TypeError('options.key must be a string or Buffer'));
+
+    var hmac = crypto.createHmac(alg[1].toUpperCase(), options.key);
+    hmac.update(stringToSign);
+    signature = hmac.digest('base64');
+
+  } else {
+    var key = options.key;
+    if (typeof (key) === 'string' || Buffer.isBuffer(key))
+      key = sshpk.parsePrivateKey(options.key);
+
+    assert.ok(sshpk.PrivateKey.isPrivateKey(key, [1, 2]),
+      'options.key must be a sshpk.PrivateKey');
+
+    if (!PK_ALGOS[key.type]) {
+      throw (new InvalidAlgorithmError(key.type.toUpperCase() + ' type ' +
+        'keys are not supported'));
+    }
+
+    if (alg[0] !== undefined &amp;&amp; key.type !== alg[0]) {
+      throw (new InvalidAlgorithmError('options.key must be a ' +
+        alg[0].toUpperCase() + ' key, was given a ' +
+        key.type.toUpperCase() + ' key instead'));
+    }
+
+    var signer = key.createSign(alg[1]);
+    signer.update(stringToSign);
+    var sigObj = signer.sign();
+    if (!HASH_ALGOS[sigObj.hashAlgorithm]) {
+      throw (new InvalidAlgorithmError(sigObj.hashAlgorithm.toUpperCase() +
+        ' is not a supported hash algorithm'));
+    }
+    options.algorithm = key.type + '-' + sigObj.hashAlgorithm;
+    signature = sigObj.toString();
+    assert.notStrictEqual(signature, '', 'empty signature produced');
+  }
+
+  request.setHeader('Authorization', sprintf(AUTHZ_FMT,
+                                             options.keyId,
+                                             options.algorithm,
+                                             options.headers.join(' '),
+                                             signature));
+
+  return true;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.http-signature.utils" id="apidoc.module.http-signature.utils">module http-signature.utils</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.utils.HttpSignatureError" id="apidoc.element.http-signature.utils.HttpSignatureError">
+        function <span class="apidocSignatureSpan">http-signature.utils.</span>HttpSignatureError
+        <span class="apidocSignatureSpan">(message, caller)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function HttpSignatureError(message, caller) {
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, caller || HttpSignatureError);
+
+  this.message = message;
+  this.name = caller.name;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.utils.InvalidAlgorithmError" id="apidoc.element.http-signature.utils.InvalidAlgorithmError">
+        function <span class="apidocSignatureSpan">http-signature.utils.</span>InvalidAlgorithmError
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function InvalidAlgorithmError(message) {
+  HttpSignatureError.call(this, message, InvalidAlgorithmError);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.utils.fingerprint" id="apidoc.element.http-signature.utils.fingerprint">
+        function <span class="apidocSignatureSpan">http-signature.utils.</span>fingerprint
+        <span class="apidocSignatureSpan">(key)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function fingerprint(key) {
+  assert.string(key, 'ssh_key');
+
+  var k = sshpk.parseKey(key, 'ssh');
+  return (k.fingerprint('md5').toString('hex'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @throws {TypeError} on bad input.
+ * @throws {Error} if what you passed doesn't look like an ssh public key.
+ */
+fingerprint: function fingerprint(key) {
+  assert.string(key, 'ssh_key');
+
+  var k = sshpk.parseKey(key, 'ssh');
+  return (k.<span class="apidocCodeKeywordSpan">fingerprint</span>('md5').toString('hex'));
+},
+
+/**
+ * Converts a PKGCS#8 PEM file to an OpenSSH public key (rsa)
+ *
+ * The reverse of the above function.
+ */
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.utils.pemToRsaSSHKey" id="apidoc.element.http-signature.utils.pemToRsaSSHKey">
+        function <span class="apidocSignatureSpan">http-signature.utils.</span>pemToRsaSSHKey
+        <span class="apidocSignatureSpan">(pem, comment)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function pemToRsaSSHKey(pem, comment) {
+  assert.equal('string', typeof (pem), 'typeof pem');
+
+  var k = sshpk.parseKey(pem, 'pem');
+  k.comment = comment;
+  return (k.toString('ssh'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.utils.sshKeyToPEM" id="apidoc.element.http-signature.utils.sshKeyToPEM">
+        function <span class="apidocSignatureSpan">http-signature.utils.</span>sshKeyToPEM
+        <span class="apidocSignatureSpan">(key)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function sshKeyToPEM(key) {
+  assert.string(key, 'ssh_key');
+
+  var k = sshpk.parseKey(key, 'ssh');
+  return (k.toString('pem'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.utils.validateAlgorithm" id="apidoc.element.http-signature.utils.validateAlgorithm">
+        function <span class="apidocSignatureSpan">http-signature.utils.</span>validateAlgorithm
+        <span class="apidocSignatureSpan">(algorithm)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function validateAlgorithm(algorithm) {
+  var alg = algorithm.toLowerCase().split('-');
+
+  if (alg.length !== 2) {
+    throw (new InvalidAlgorithmError(alg[0].toUpperCase() + ' is not a ' +
+      'valid algorithm'));
+  }
+
+  if (alg[0] !== 'hmac' &amp;&amp; !PK_ALGOS[alg[0]]) {
+    throw (new InvalidAlgorithmError(alg[0].toUpperCase() + ' type keys ' +
+      'are not supported'));
+  }
+
+  if (!HASH_ALGOS[alg[1]]) {
+    throw (new InvalidAlgorithmError(alg[1].toUpperCase() + ' is not a ' +
+      'supported hash algorithm'));
+  }
+
+  return (alg);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.http-signature.verify" id="apidoc.module.http-signature.verify">module http-signature.verify</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.verify.verifyHMAC" id="apidoc.element.http-signature.verify.verifyHMAC">
+        function <span class="apidocSignatureSpan">http-signature.verify.</span>verifyHMAC
+        <span class="apidocSignatureSpan">(parsedSignature, secret)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function verifyHMAC(parsedSignature, secret) {
+  assert.object(parsedSignature, 'parsedHMAC');
+  assert.string(secret, 'secret');
+
+  var alg = validateAlgorithm(parsedSignature.algorithm);
+  if (alg[0] !== 'hmac')
+    return (false);
+
+  var hashAlg = alg[1].toUpperCase();
+
+  var hmac = crypto.createHmac(hashAlg, secret);
+  hmac.update(parsedSignature.signingString);
+
+<span class="apidocCodeCommentSpan">  /*
+   * Now double-hash to avoid leaking timing information - there's
+   * no easy constant-time compare in JS, so we use this approach
+   * instead. See for more info:
+   * https://www.isecpartners.com/blog/2011/february/double-hmac-
+   * verification.aspx
+   */
+</span>  var h1 = crypto.createHmac(hashAlg, secret);
+  h1.update(hmac.digest());
+  h1 = h1.digest();
+  var h2 = crypto.createHmac(hashAlg, secret);
+  h2.update(new Buffer(parsedSignature.params.signature, 'base64'));
+  h2 = h2.digest();
+
+  /* Node 0.8 returns strings from .digest(). */
+  if (typeof (h1) === 'string')
+    return (h1 === h2);
+  /* And node 0.10 lacks the .equals() method on Buffers. */
+  if (Buffer.isBuffer(h1) &amp;&amp; !h1.equals)
+    return (h1.toString('binary') === h2.toString('binary'));
+
+  return (h1.equals(h2));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.http-signature.verify.verifySignature" id="apidoc.element.http-signature.verify.verifySignature">
+        function <span class="apidocSignatureSpan">http-signature.verify.</span>verifySignature
+        <span class="apidocSignatureSpan">(parsedSignature, pubkey)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function verifySignature(parsedSignature, pubkey) {
+  assert.object(parsedSignature, 'parsedSignature');
+  if (typeof (pubkey) === 'string' || Buffer.isBuffer(pubkey))
+    pubkey = sshpk.parseKey(pubkey);
+  assert.ok(sshpk.Key.isKey(pubkey, [1, 1]), 'pubkey must be a sshpk.Key');
+
+  var alg = validateAlgorithm(parsedSignature.algorithm);
+  if (alg[0] === 'hmac' || alg[0] !== pubkey.type)
+    return (false);
+
+  var v = pubkey.createVerify(alg[1]);
+  v.update(parsedSignature.signingString);
+  return (v.verify(parsedSignature.params.signature, 'base64'));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  cert: fs.readFileSync('./cert.pem')
+};
+
+https.createServer(options, function (req, res) {
+  var rc = 200;
+  var parsed = httpSignature.parseRequest(req);
+  var pub = fs.readFileSync(parsed.keyId, 'ascii');
+  if (!httpSignature.<span class="apidocCodeKeywordSpan">verifySignature</span>(parsed, pub))
+    rc = 401;
+
+  res.writeHead(rc);
+  res.end();
+}).listen(8443);
+```
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
